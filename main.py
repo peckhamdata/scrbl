@@ -1,0 +1,32 @@
+import curses
+
+def box():
+    return [(0,0,'+'),(0,1,'-'),(0,2,'+'),
+            (1,0,'|'),(1,1,' '),(1,2,'|'),
+            (2,0,'+'),(2,1,'-'),(2,2,'+')]
+
+def render(shape, x, y):
+    for char in shape:
+        screen.addstr(char[0] + x, char[1] + y, char[2])
+
+print("Preparing to initialize screen...")
+screen = curses.initscr()
+print("Screen initialized.")
+
+tile_size = 3
+board_width = 25
+board_height = 9
+
+x_offsets = range(0, board_width * tile_size -1, tile_size -1)
+y_offsets = range(0, board_height * tile_size -1, tile_size -1)
+for x in x_offsets:
+    for y in y_offsets:
+        render(box(), y, x)
+
+
+screen.refresh()
+
+curses.napms(5000)
+curses.endwin()
+
+print("Window ended.")
